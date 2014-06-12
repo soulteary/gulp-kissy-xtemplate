@@ -1,31 +1,32 @@
 {
-  "name": "gulp-kissy-xtemplate",
-  "version": "0.0.0",
-  "description": "",
-  "license": "MIT",
-  "repository": "daxingplay/gulp-kissy-xtemplate",
-  "author": {
-    "name": "daxingplay",
-    "email": "daxingplay@gmail.com",
-    "url": "https://github.com/daxingplay"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "gulpplugin"
-  ],
-  "dependencies": {
-    "gulp-util": "~2.2.14",
-    "through2": "~0.4.1"
-  },
-  "devDependencies": {
-    "mocha": "*"
-  }
+    "name": "gulp-kissy-xtemplate",
+    "version": "0.0.1",
+    "description": "",
+    "license": "MIT",
+    "repository": "daxingplay/gulp-kissy-xtemplate",
+    "author": {
+        "name": "daxingplay",
+        "email": "daxingplay@gmail.com",
+        "url": "https://github.com/daxingplay"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "files": [
+        "index.js"
+    ],
+    "keywords": [
+        "gulpplugin"
+    ],
+    "dependencies": {
+        "gulp-util": "~2.2.14",
+        "through2": "~0.4.1",
+        "kissy-xtemplate": "~0.2.0"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    }
 }

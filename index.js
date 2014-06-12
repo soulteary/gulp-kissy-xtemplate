@@ -1,12 +1,15 @@
 'use strict';
 var gutil = require('gulp-util');
 var through = require('through2');
-var module = require('module');
+var Xtemplate = require('kissy-xtemplate');
 
 module.exports = function (options) {
-	if (!options.foo) {
-		throw new gutil.PluginError('gulp-kissy-xtemplate', '`foo` required');
-	}
+//	if (!options.version) {
+//		throw new gutil.PluginError('gulp-kissy-xtemplate', '`version` required');
+//	}
+    options = options || {};
+    options.outputCharset = options.outputCharset || 'utf8';
+    options.inputCharset = options.inputCharset || 'utf8';
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -20,7 +23,8 @@ module.exports = function (options) {
 		}
 
 		try {
-			file.contents = new Buffer(module(file.contents.toString(), options));
+            var xtemp = new Xtemplate(options);
+			file.contents = new Buffer(xtemp._compile(file.contents.toString(), file.path, options.inputCharset, options.outputCharset));
 		} catch (err) {
 			this.emit('error', new gutil.PluginError('gulp-kissy-xtemplate', err));
 		}
