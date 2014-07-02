@@ -11,25 +11,28 @@ module.exports = function (options) {
     options.outputCharset = options.outputCharset || 'utf8';
     options.inputCharset = options.inputCharset || 'utf8';
 
-	return through.obj(function (file, enc, cb) {
-		if (file.isNull()) {
-			this.push(file);
-			return cb();
-		}
+    return through.obj(function (file, enc, cb) {
+        if (file.isNull()) {
+            this.push(file);
+            return cb();
+        }
 
-		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-kissy-xtemplate', 'Streaming not supported'));
-			return cb();
-		}
+        if (file.isStream()) {
+            this.emit('error', new gutil.PluginError('gulp-kissy-xtemplate', 'Streaming not supported'));
+            return cb();
+        }
 
-		try {
+        try {
             var xtemp = new Xtemplate(options);
-			file.contents = new Buffer(xtemp._compile(file.contents.toString(), file.path, options.inputCharset, options.outputCharset));
-		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-kissy-xtemplate', err));
-		}
+            if(file && file.path){
+                file.path = file.path.replace('.tpl.html', '.xtpl.js');
+            }
+            file.contents = new Buffer(xtemp._compile(file.contents.toString(), file.path, options.inputCharset, options.outputCharset));
+        } catch (err) {
+            this.emit('error', new gutil.PluginError('gulp-kissy-xtemplate', err));
+        }
 
-		this.push(file);
-		cb();
-	});
+        this.push(file);
+        cb();
+    });
 };
